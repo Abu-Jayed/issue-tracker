@@ -16,18 +16,24 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchemas";
-import {z} from "zod"
+import { z } from "zod";
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 // interface IssueForm {
 //   title: string;
 //   description: string;
 // }
 
-type IssueForm = z.infer<typeof createIssueSchema>
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
-  const { register, control, handleSubmit, formState: {errors} } = useForm<IssueForm>({
-      resolver: zodResolver(createIssueSchema)
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
   });
   const router = useRouter();
   const [error, setError] = useState("");
@@ -57,7 +63,7 @@ const NewIssuePage = () => {
             {...register("title")}
           ></TextField.Input>
         </TextField.Root>
-        {errors.title&&<Text color="red" as="p">{errors.title.message}</Text>}
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
           name="description"
           control={control}
@@ -65,7 +71,7 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field}></SimpleMDE>
           )}
         ></Controller>
-        {errors.description&&<Text color="red" as="p">{errors.description.message} </Text>}
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button>Submit New Issue</Button>
       </form>
     </div>
