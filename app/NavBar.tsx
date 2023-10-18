@@ -1,5 +1,5 @@
 "use client";
-import { Box } from "@radix-ui/themes";
+import { Box, Container, Flex } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,30 +14,38 @@ const NavBar = () => {
     { label: "Issues", herf: "/issues/list" },
   ];
   return (
-    <nav className="flex space-x-6 border-b mb-5 px-5 h-14 items-center">
-      <Link href={"/"}>
-        <AiFillBug></AiFillBug>
-      </Link>
-      <ul className="flex space-x-6">
-        {links.map((link) => (
-          <li
-            key={link.label}
-            className={`${
-              currentPath === link.herf ? "text-zinc-900" : "text-zinc-500"
-            }  hover:text-zinc-800 transition-colors`}
-          >
-            <Link href={link.herf}>{link.label}</Link>
-          </li>
-        ))}
-      </ul>
-      <Box>
-        {status === "authenticated" && (
-          <Link href={"/api/auth/signout"}>Logout</Link>
-        )}
-        {status === "unauthenticated" && (
-          <Link href={"/api/auth/signin"}>Login</Link>
-        )}
-      </Box>
+    <nav className="border-b mb-5 px-5 py-3">
+      <Container>
+        <Flex justify={"between"}>
+          <Flex align={"center"} gap={"3"}>
+            <Link href={"/"}>
+              <AiFillBug></AiFillBug>
+            </Link>
+            <ul className="flex space-x-6">
+              {links.map((link) => (
+                <li
+                  key={link.label}
+                  className={`${
+                    currentPath === link.herf
+                      ? "text-zinc-900"
+                      : "text-zinc-500"
+                  }  hover:text-zinc-800 transition-colors`}
+                >
+                  <Link href={link.herf}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </Flex>
+          <Box>
+            {status === "authenticated" && (
+              <Link href={"/api/auth/signout"}>Logout</Link>
+            )}
+            {status === "unauthenticated" && (
+              <Link href={"/api/auth/signin"}>Login</Link>
+            )}
+          </Box>
+        </Flex>
+      </Container>
     </nav>
   );
 };
