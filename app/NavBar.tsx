@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "@/app/components/";
 import {
   Avatar,
   Box,
@@ -13,7 +14,6 @@ import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
 
 const NavBar = () => {
-
   return (
     <nav className="border-b mb-5 px-5 py-3">
       <Container>
@@ -40,24 +40,24 @@ const NavLinks = () => {
   ];
   return (
     <ul className="flex space-x-6">
-              {links.map((link) => (
-                <li
-                  key={link.label}
-                  className={`${
-                    currentPath === link.herf
-                      ? "text-zinc-900"
-                      : "text-zinc-500"
-                  }  hover:text-zinc-800 transition-colors`}
-                >
-                  <Link href={link.herf}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-  )
-}
+      {links.map((link) => (
+        <li
+          key={link.label}
+          className={`${
+            currentPath === link.herf ? "text-zinc-900" : "text-zinc-500"
+          }  hover:text-zinc-800 transition-colors`}
+        >
+          <Link href={link.herf}>{link.label}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 const AuthStatus = () => {
   const { data: session, status } = useSession();
+
+  if (status === "loading") return <Skeleton width={"3rem"}></Skeleton>;
 
   return (
     <Box>
@@ -85,7 +85,9 @@ const AuthStatus = () => {
         </DropdownMenu.Root>
       )}
       {status === "unauthenticated" && (
-        <Link className="nav-link" href={"/api/auth/signin"}>Login</Link>
+        <Link className="nav-link" href={"/api/auth/signin"}>
+          Login
+        </Link>
       )}
     </Box>
   );
