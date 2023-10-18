@@ -6,10 +6,13 @@ import "react-loading-skeleton/dist/skeleton.css";
 const LoadingNewIssuePage = () => {
   return (
     <Box className="max-w-xl">
-      <Skeleton></Skeleton>
+      <Skeleton height={"2rem"}></Skeleton>
       <Skeleton height={"20rem"}></Skeleton>
     </Box>
   );
 };
 
 export default LoadingNewIssuePage;
+
+// import IssueFormSkeleton from "@/app/components/IssueFormSkeleton";
+// export default IssueFormSkeleton;
