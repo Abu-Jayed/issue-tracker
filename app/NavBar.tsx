@@ -54,6 +54,7 @@ const NavBar = () => {
                     radius="full"
                     alt="user img"
                     className="cursor-pointer"
+                    referrerPolicy="no-referrer"
                   ></Avatar>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
