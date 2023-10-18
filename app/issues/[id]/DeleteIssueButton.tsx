@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
@@ -11,15 +11,18 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
         <AlertDialog.Content>
           <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
           <AlertDialog.Description>
-            Are you sure you want to delete this issue? This action cannot be undone.
+            Are you sure you want to delete this issue? This action cannot be
+            undone.
           </AlertDialog.Description>
           <Flex mt={"4"} gap={"3"}>
-             <AlertDialog.Cancel>
-              <Button variant="soft" color="gray">Cancel</Button>
-             </AlertDialog.Cancel>
-             <AlertDialog.Action>
+            <AlertDialog.Cancel>
+              <Button variant="soft" color="gray">
+                Cancel
+              </Button>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action>
               <Button color="red">Delete</Button>
-             </AlertDialog.Action>
+            </AlertDialog.Action>
           </Flex>
         </AlertDialog.Content>
       </AlertDialog.Root>
