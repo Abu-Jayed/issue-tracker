@@ -28,8 +28,8 @@ const IssuesPage = async ({
     : undefined;
 
   const orderBy = columns
-  .map(column => column.value)
-  .includes(searchParams.orderBy)
+    .map((column) => column.value)
+    .includes(searchParams.orderBy)
     ? { [searchParams.orderBy]: "asc" }
     : undefined;
 
@@ -47,7 +47,10 @@ const IssuesPage = async ({
         <Table.Header>
           <Table.Row>
             {columns.map((column) => (
-              <Table.ColumnHeaderCell key={column.value}>
+              <Table.ColumnHeaderCell
+                className={column.className}
+                key={column.value}
+              >
                 <NextLink
                   href={{
                     query: { ...searchParams, orderBy: column.value },
