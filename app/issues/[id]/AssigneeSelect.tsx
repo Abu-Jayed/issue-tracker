@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import toast, { Toaster } from "react-hot-toast";
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const {
@@ -20,24 +21,18 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   if (isLoading) return <Skeleton></Skeleton>;
   if (error) return null;
 
-  //We don't need this now.
-  // const [users, setUsers] = useState<User[]>([]);
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     const { data } = await axios.get<User[]>("/api/users");
-  //     setUsers(data);
-  //   };
-  //   fetchUsers()
-  // }, []);
-
   return (
     <>
       <Select.Root
         defaultValue={issue.assignedToUserId || ""}
         onValueChange={(userId) => {
-          axios.patch("/api/issues/" + issue.id, {
-            assignedToUserId: userId || null,
-          });
+          axios
+            .patch("/api/issues/" + issue.id, {
+              assignedToUserId: userId || null,
+            })
+            .catch((err) => {
+              toast.error("Changes could not be saved.")
+            });
         }}
       >
         <Select.Trigger placeholder="Assign..." />
@@ -53,8 +48,19 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
           </Select.Group>
         </Select.Content>
       </Select.Root>
+      <Toaster></Toaster>
     </>
   );
 };
 
 export default AssigneeSelect;
+
+//We don't need this now.
+// const [users, setUsers] = useState<User[]>([]);
+// useEffect(() => {
+//   const fetchUsers = async () => {
+//     const { data } = await axios.get<User[]>("/api/users");
+//     setUsers(data);
+//   };
+//   fetchUsers()
+// }, []);
